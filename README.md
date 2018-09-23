@@ -1,4 +1,4 @@
-> ##《 Node.js 实战 ( 第二版 ) 》阅读心得及实战延伸
+> ## 《 Node.js 实战 ( 第二版 ) 》阅读心得及实战延伸
 
 ### 第一章
 
@@ -31,11 +31,11 @@ EventLoop 是一种常用的机制，通过对内部或外部的事件提供者�
 
 重点的三个阶段主要在`timers`、`poll`、`check`这3个阶段。
 
-##### **timers 阶段**
+**timers 阶段**
 
 timers 是事件循环的第一个阶段，Node 会去检查有无已过期的 timer，如果有则把它的回调压入 timer 的任务队列中等待执行，事实上，Node 并不能保证 timer 在预设时间到了就会立即执行，因为 Node 对 timer 的过期检查不一定靠谱，它会受机器上其它运行程序影响，或者那个时间点主线程不空闲。
 
-##### **poll 阶段**
+**poll 阶段**
 
 poll 阶段主要有2个功能：
 
@@ -49,7 +49,7 @@ EventLoop 将同步执行 poll 队列里的回调，直到队列为空或执行�
 
 注意一个细节，没有`setImmediate()`会导致 EventLoop 阻塞在 poll 阶段，这样之前设置的 timer 岂不是执行不了？所以咧，在 poll 阶段 EventLoop 会有一个检查机制，检查 timer 队列是否为空，如果 timer 队列非空，EventLoop 就开始下一轮事件循环，即重新进入到 timer 阶段。
 
-##### **check 阶段**
+**check 阶段**
 
 `setImmediate()`的回调会被加入 check 队列中， 从 EventLoop 的阶段图可以知道，check 阶段的执行顺序在poll 阶段之后。
 
