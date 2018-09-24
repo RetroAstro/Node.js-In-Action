@@ -1,56 +1,3 @@
-#### Node 中的核心模块
-
-* #### `assert`
-
-* #### `process`
-
-- #### `cluster`
-
-- #### `crypto`
-
-- #### `dns`
-
-- #### `events`
-
-- #### `fs`
-
-- #### `http`
-
-- #### `https`
-
-- #### `net`
-
-- #### `os`
-
-- #### `path`
-
-- #### `querystring`
-
-- #### `stream`
-
-- #### `url`
-
-- #### `util`
-
-- #### `zlib`
-
-#### 核心模块的常见应用
-
-**应用一：** 实现一个压缩文件、解压文件的命令行工具
-
-使用：
-
-```bash
-$ cd ./chapter-1/zlib && touch abc.txt
-
-$ node zlib.js -gzip -f abc.txt
-
-$ unlink abc.txt && node zlib.js -gunzip -f abc.txt.gz
-```
-
-源码：
-
-```js
 const fs = require('fs')
 const path = require('path')
 const zlib = require('zlib')
@@ -100,11 +47,4 @@ if (process.argv.length !== 5) {
         }
     })
 }
-```
-
-
-
-
-
-
 
