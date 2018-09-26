@@ -19,9 +19,9 @@ let fileExist = function (file, cb) {
                     if (err) cb(err)
 
                     if (stats.isFile()) {
-                        file === filename ?
-                        cb(null, file, dir, filePath) : filesCount++ && filesCount === files.length && !hasDirectory && file !== 'zlib.js' ?
-                        cb(`${file} can't be found in ${filePath}`) : null
+                        if (file === filename) return cb(null, file, dir, filePath)
+                        filesCount++
+                        filesCount === files.length && !hasDirectory && file !== 'zlib.js' ? cb(`${file} can't be found in ${filePath}`) : null
                     } 
                     else if (stats.isDirectory()) {
                         hasDirectory = true
