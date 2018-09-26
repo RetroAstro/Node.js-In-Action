@@ -60,16 +60,24 @@ let fileExist = function (file, cb) {
     let walk = function (filePath) {
         fs.readdir(filePath, (err, files) => {
             if (err) cb(err)
+            if (!files.length) return cb(`${file} can't be found in ${filePath}`)
 
-            files.map((filename) => {
+            let filesCount = 0
+            let hasDirectory = false
+
+            files.map((filename) => { 
                 let dir = path.join(filePath, filename)
+
                 fs.stat(dir, (err, stats) => {
                     if (err) cb(err)
-    
+
                     if (stats.isFile()) {
-                        if (file === filename) cb(null, file, dir, filePath)
+                        file === filename ?
+                        cb(null, file, dir, filePath) : filesCount++ && filesCount === files.length && !hasDirectory && file !== 'zlib.js' ?
+                        cb(`${file} can't be found in ${filePath}`) : null
                     } 
                     else if (stats.isDirectory()) {
+                        hasDirectory = true
                         walk(dir)
                     }
                 })
